@@ -1,81 +1,89 @@
 package com.dani.listafiesta;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
-public class Metodo 
+public class Metodo
 {
 	Scanner teclado = new Scanner(System.in);
 	
-	private ArrayList<String> listaInvitados;
+	private ArrayList<Personas> listado;
+	private String nada; //variable para usar después de los nextInt
 	
 	public Metodo()
 	{
-		listaInvitados = new ArrayList<String>();
+		listado = new ArrayList<Personas>();
 	}
 	
-	public void crearListaInvitados(String persona)
+	public void crearListaInvitados()
 	{
 		System.out.println("¿Cuántos invitados habrá? (si desea volver a atrás pulse 0)");
-		int totalInvitados;
-		totalInvitados = teclado.nextInt();
-		if (totalInvitados > 0)
+		int totalinvitados;
+		totalinvitados = teclado.nextInt();
+		nada = teclado.nextLine();
+		if (totalinvitados > 0)
 		{
-			System.out.println("Escriba el nombre y los apellidos de los invitados:");
-			listaInvitados.clear();
-			for (int i = 0; i <= totalInvitados; i++)
+			System.out.println("Escriba el nombre y los apellidos de los invitados: ");
+			listado.clear();
+			for (int i = 0; i < totalinvitados; i++)
 			{
-				persona = teclado.nextLine();
-				listaInvitados.add(persona);
+				Personas persona = new Personas (teclado.nextLine());
+				listado.add(persona);
 			}
 		}
 	}
 	
 	public void visualizarLista()
 	{
-		System.out.println("Lista de invitados:");
-		for (int i = 1; i < listaInvitados.size(); i++)
+		//iterator
+		Iterator<Personas> iterador = listado.iterator();
+		int i = 1;
+	
+		while (iterador.hasNext())
 		{
-			System.out.println("- " + listaInvitados.get(i));
+			System.out.println("Código "+ i + ": " + iterador.next().toString());
+			i++;
 		}
+		
+		
 	}
 	
-	public void añadirInvitados(String persona)
+	public void añadirInvitados()
 	{
 		System.out.println("¿Cuántas personas va a añadir? (si desea volver a atrás pulse 0)");
 		int añadidos;
 		añadidos = teclado.nextInt();
 		if (añadidos > 0)
 		{
-			System.out.println("Escriba el nombre y apellidos de la persona/s que quiera añadir:");
+			System.out.println("Escriba el nombre y apellidos de la persona/s que quiera añadir: ");
 	
-			for (int i = 0; i <= añadidos; i++)
+			for (int i = 0; i < añadidos; i++)
 			{
-				persona = teclado.nextLine();
-				listaInvitados.add(persona);
+				Personas persona = new Personas(teclado.nextLine());
+				listado.add(persona);
 			}
 		}
 	}
 	
-	public void eliminarInvitados(String persona)
+	public void eliminarInvitados()
 	{
-		System.out.println("¿Cuántas personas quiere eliminar? (si desea volver a atrás pulse 0)");
-		int eliminados;
-		eliminados = teclado.nextInt();
-		if (eliminados > 0)
+		int eliminar;
+		System.out.println("Escriba el código de invitado de la persona que desea eliminar ");
+		System.out.println("Cuando desee volver a atrás pulse 0 ");
+		do
 		{
-			System.out.println("Escriba el nombre y apellidos de la persona/s que quiera eliminar");
-			for (int i = 0; i <= eliminados; i++)
-			{
-				persona = teclado.nextLine();
-				listaInvitados.remove(persona);
-			}
-		}	
+			eliminar = teclado.nextInt();
+			listado.remove(0);
+		}
+		while(eliminar != 0);
 	}
 	
 	public void cerrarPrograma()
 	{
-		System.out.println("Usted está cerrando el programa.");
-		System.out.println("Si está seguro de cerrar el programa pulse 0.");
+		System.out.println("Cerrando...");
+		System.out.println("El programa se ha cerrado");
+		System.exit(0);
 	}
 	
 
